@@ -6,10 +6,9 @@
 //  Copyright © 2016 Sandhya Ram. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
-class Weather {
+struct Weather {
     var date: Date!
     var cityName: String!
     var currentTemp: String!
@@ -40,4 +39,10 @@ class Weather {
     var iconName: String!
     var description: String!
     
+    init (image: UIImage?, desc: String, min: Int, max: Int ) {
+        self.iconImage = image
+        self.description = desc
+        self.minTemp = min
+        self.maxTemp = max
+    }
 }
