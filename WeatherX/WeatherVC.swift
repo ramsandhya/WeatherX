@@ -18,14 +18,25 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var iconName: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
+    var zipcode: String!
+    var countryId: String!
+    
     var weatherArray: [Weather]!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadSampleWeather()
+        
         tableView.delegate = self
         tableView.dataSource = self
+
+        //loadSampleWeather()
         displayWeather()
+        
+        WeatherService.serviceInstance.getWeatherArray(zipcode: zipcode, countryId: countryId, completed: {(weatherArray: [Weather]) in
+            self.weatherArray = weatherArray
+        })
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -38,31 +49,22 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         if weatherArray != nil && weatherArray.count > 0 {
             let weather = weatherArray[0]
-            displayCity.text = "Johns Creek"
-            currentDate.text = "11/28/16"
-            displayIcon.image = weather.iconImage
-            displayTemp.text = weather.displayMaxTemp
-            iconName.text = weather.description
+            
+            let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "en_US")
+            formatter.setLocalizedDateFormatFromTemplate("MM/dd/yyyy")
+            currentDate.text = formatter.string( from: weather.date)
+//            displayCity.text = "Johns Creek"
+//            
+//            displayIcon.image = weather.iconImage
+//            displayTemp.text = weather.displayMaxTemp
+//            iconName.text = weather.description
         }
     }
     
     func loadSampleWeather() {
         
-        weatherArray = [Weather]()
-        let image1 = UIImage(named: "Clear")!
-        let first = Weather(image: image1, desc: "Sunny", min: 50, max: 60)
-        let image2 = UIImage(named: "Partially Cloudy")!
-        let second = Weather(image: image2, desc: "Cloudy", min: 55, max: 65)
-        let image3 = UIImage(named: "Thunderstorm")!
-        let third = Weather(image: image3, desc: "Rainy", min: 70, max: 75)
-        let image4 = UIImage(named: "Snow")!
-        let fourth = Weather(image: image4, desc: "Snow", min: 53, max: 55)
-        let image31 = UIImage(named: "Clear")!
-        let third1 = Weather(image: image31, desc: "Sunny", min: 70, max: 75)
-        let image41 = UIImage(named: "Snow")!
-        let fourth1 = Weather(image: image41, desc: "Snow", min: 53, max: 55)
         
-        weatherArray.append(contentsOf: [first, second, third, fourth, third1, fourth1])
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
