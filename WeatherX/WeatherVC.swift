@@ -18,10 +18,15 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var iconName: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
-    var zipcode: String!
-    var countryId: String!
+    var zipcode: String! = "30097"
+    var countryId: String! = "us"
     
-    var weatherArray: [Weather]!
+    var weatherArray: [Weather]! {
+        didSet{
+            displayWeather()
+            tableView.reloadData()
+        }
+    }
     
     
     override func viewDidLoad() {
@@ -35,6 +40,7 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         WeatherService.serviceInstance.getWeatherArray(zipcode: zipcode, countryId: countryId, completed: {(weatherArray: [Weather]) in
             self.weatherArray = weatherArray
+            
         })
         
         // Do any additional setup after loading the view, typically from a nib.
@@ -54,11 +60,11 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             formatter.locale = Locale(identifier: "en_US")
             formatter.setLocalizedDateFormatFromTemplate("MM/dd/yyyy")
             currentDate.text = formatter.string( from: weather.date)
-//            displayCity.text = "Johns Creek"
-//            
-//            displayIcon.image = weather.iconImage
-//            displayTemp.text = weather.displayMaxTemp
-//            iconName.text = weather.description
+            displayCity.text = weather.cityName
+            
+            displayIcon.image = weather.iconImage
+            displayTemp.text = weather.displayMaxTemp
+            iconName.text = weather.description
         }
     }
     
@@ -72,7 +78,7 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return weatherArray.count - 1
+        return 10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

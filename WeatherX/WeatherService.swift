@@ -25,6 +25,7 @@ class WeatherService {
             .responseJSON { response in
                 
             if let JSON = response.result.value {
+                print(JSON)
                 var weatherArray: [Weather] = []
                 // whole dictionary
                 if let dictionary = JSON as? [String: Any] {
@@ -44,6 +45,7 @@ class WeatherService {
                         }
                     }
                 }
+                print(weatherArray)
                 completed(weatherArray)
             }
         }

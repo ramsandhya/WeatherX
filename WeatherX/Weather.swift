@@ -65,7 +65,7 @@ struct Weather {
         let weather = json["weather"] as? [[String: Any]],
         // accessing diff. keys in the "weather"
         let main = weather[0]["main"] as? String,
-        let desc = weather[0]["desc"] as? String,
+        let desc = weather[0]["description"] as? String,
         let icon = weather[0]["icon"] as? String
         
         else {
