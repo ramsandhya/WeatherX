@@ -64,13 +64,21 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
             displayIcon.image = weather.iconImage
             displayTemp.text = weather.displayMaxTemp
-            iconName.text = weather.description
+            iconName.text = upperCased(desc: weather.description)
         }
     }
     
     func loadSampleWeather() {
         
         
+    }
+    
+    func upperCased(desc: String) -> String {
+        
+        let first = String(desc.characters.prefix(1)).uppercased()
+        print(first)
+        let upperCase = first + String(desc.characters.dropFirst())
+        return upperCase
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -93,13 +101,8 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
         cell.cellDay.text = formatter.string(from: weather.date)
         cell.cellImage.image = weather.iconImage
-            var desc = weather.description
-            print(weather.description)
-            let first = String(desc.characters.prefix(1)).uppercased()
-            print(first)
-            let upperCase = first + String(desc.characters.dropFirst())
-            print(upperCase)
-        cell.cellDesc.text = upperCase
+            
+        cell.cellDesc.text = upperCased(desc: weather.description)
         cell.cellMin.text = weather.displayMinTemp
         cell.cellMax.text = weather.displayMaxTemp
         }
