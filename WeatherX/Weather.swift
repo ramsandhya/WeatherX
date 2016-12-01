@@ -44,7 +44,7 @@ struct Weather {
         }
     }
     var mainDesc: String!
-    var description: String!
+    var description: String = ""
     
     
     init?(cityName: String, json: [String: Any] ) {

@@ -90,10 +90,16 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let formatter = DateFormatter()
             formatter.locale = Locale(identifier: "en_US")
             formatter.setLocalizedDateFormatFromTemplate("EEEE")
-        
+            
         cell.cellDay.text = formatter.string(from: weather.date)
         cell.cellImage.image = weather.iconImage
-        cell.cellDesc.text = weather.description
+            var desc = weather.description
+            print(weather.description)
+            let first = String(desc.characters.prefix(1)).uppercased()
+            print(first)
+            let upperCase = first + String(desc.characters.dropFirst())
+            print(upperCase)
+        cell.cellDesc.text = upperCase
         cell.cellMin.text = weather.displayMinTemp
         cell.cellMax.text = weather.displayMaxTemp
         }
