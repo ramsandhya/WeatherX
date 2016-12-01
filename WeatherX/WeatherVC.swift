@@ -87,6 +87,11 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         if weatherArray != nil && indexPath.row < weatherArray.count - 1 {
         let weather = weatherArray[indexPath.row + 1]
         
+        let formatter = DateFormatter()
+            formatter.locale = Locale(identifier: "en_US")
+            formatter.setLocalizedDateFormatFromTemplate("EEEE")
+        
+        cell.cellDay.text = formatter.string(from: weather.date)
         cell.cellImage.image = weather.iconImage
         cell.cellDesc.text = weather.description
         cell.cellMin.text = weather.displayMinTemp
