@@ -62,7 +62,9 @@ class ZipVC: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
      
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let newVC = segue.destination as! WeatherVC
-                
+        newVC.zipcode = zipText.text
+        newVC.countryId = countryId
+        
      // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
     }
