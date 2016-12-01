@@ -18,8 +18,8 @@ class WeatherVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var iconName: UILabel!
     @IBOutlet weak var tableView: UITableView!
     
-    var zipcode: String! = "07604"
-    var countryId: String! = "us"
+    var zipcode: String!
+    var countryId: String! 
     
     var weatherArray: [Weather]! {
         didSet{
